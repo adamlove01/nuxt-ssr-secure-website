@@ -1,0 +1,47 @@
+{
+  "name": "nuxt-ssr-secure-website",
+  "version": "1.0.0",
+  "description": "Nuxt SSR Secure Website",
+  "author": "Adam Love",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server/startApp.js --watch server",
+    "build": "nuxt build",
+    "start": "node server/startApp.js",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxt/components": "^2.1.8",
+    "@nuxtjs/axios": "^5.13.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.5",
+    "md5": "^2.3.0",
+    "nodemailer": "^6.5.0",
+    "nuxt": "^2.14.12",
+    "nuxt-helmet": "^2.0.0",
+    "pg": "^8.5.1",
+    "sanitize-html": "^2.3.2",
+    "svg-captcha": "^1.4.0",
+    "vuetify": "^2.5.6",
+    "vuetify-loader": "^1.7.2"
+  },
+  "devDependencies": {
+    "@mdi/font": "^5.9.55",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.7.0",
+    "eslint-webpack-plugin": "^2.5.2",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "sass": "^1.35.1",
+    "sass-loader": "^10.1.1"
+  }
+}

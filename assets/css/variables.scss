@@ -1,0 +1,178 @@
+/****************** 
+ * --- GLOBAL FONTS 
+ ******************/
+
+$heading-font-family: 'DM Sans';
+$body-font-family: 'DM Sans';
+
+
+body .v-application {
+
+  /** Heading fonts */
+  .text-h1,
+  .text-h2,
+  .text-h3,
+  .text-h4,
+  .text-h5,
+  .text-h6,
+  .PageTitle,
+  .title {
+    font-family: $heading-font-family !important;
+    font-weight: 500 !important;
+    line-height: 2.5rem;
+    letter-spacing: -0.2px !important;
+  }
+  .subtitle-1 {
+    font-family: $heading-font-family !important;
+    font-size: 1.2rem !important;
+    font-weight: 400 !important;
+    line-height: 2.5rem;
+    letter-spacing: -0.2px !important;
+  }
+
+  /** Body fonts */
+  .text-body-1,
+  .text-body-2,
+  button,
+  div,
+  p,
+  a {
+    font-family: $body-font-family !important;
+    font-weight: 400 !important;
+    letter-spacing: 0px;
+  }
+
+  /** Big subtitles on home page */
+  .subtitle-big {
+    font-family: $body-font-family !important;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.6em;
+    letter-spacing: 0px;
+  }
+
+  th {
+    font-weight: 600 !important;
+  }
+}
+
+/******************* 
+ * --- GLOBAL STYLES
+ *******************/
+
+/** Show scrollbar only when needed */
+html {
+  overflow-y: auto !important;
+}
+
+/** Hide content until the page is fully rendered */
+[v-cloak] {
+  display: none;
+}
+
+/** anchor tag: no styling by default */
+a { 
+  color: transparent;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+
+/** --- Background Images */
+
+.bg_white_geometric {
+  height: 100%;
+  background-image: url('/img/bg_white_geometric.jpg');
+  background-size: cover;
+}
+
+body .v-application {
+
+  /** --- FORMS: Custom v-input Styles */
+
+  /** --- custom-input-default -- Add 'custom-input-default' class */
+
+  form .custom-input-default.v-input {
+    /** v-form: Hide input v-counter until the input has focus */
+    &:not(.v-input--is-focused) .v-counter {
+      display: none;
+    }
+
+    /** v-form: Prevent icons from turning red if 'error' */
+    .v-icon {
+      color: #0000008a !important;
+    }
+
+    /** v-form: Prevent labels & counters from turning red if 'error' */
+    .v-label,
+    .v-counter {
+      color: #0009 !important;
+    }
+
+    /** v-form: Prevent input caret from turning red if 'error' */
+    input:focus {
+      caret-color:#1976d2;
+    }
+  }
+
+  /** --- custom-input-outlined -- Add 'custom-input-outlined' class */
+
+  form .custom-input-outlined.v-input {
+    /** v-form: Hide input v-counter until the input has focus */
+    &:not(.v-input--is-focused) .v-counter {
+      display: none;
+    }
+
+    /** v-form: Prevent icons from turning red if 'error' */
+    .v-icon {
+      color: #0000008a !important;
+    }
+
+    /** v-form: Prevent labels & counters from turning red if 'error' */
+    .v-label,
+    .v-counter {
+      color: #0009 !important;
+    }
+
+    /** v-form: Prevent input caret from turning red if 'error' */
+    input:focus {
+      caret-color:#1976d2;
+    }
+
+    /** v-form: Add spacing between input icon and text */
+    .v-label,
+    input {
+      padding: 0 8px;
+      padding-bottom: inherit;
+    }
+
+    &.v-text-field.v-text-field--enclosed .v-text-field__details {
+      padding-left: 0;
+      margin-bottom: 4px;
+    }
+
+    /** Custom field height -- 'default' is too tall and 'dense' is too short */
+    > .v-input__control > .v-input__slot {
+      min-height: 50px;
+    }
+    .v-input__prepend-inner, .v-input__append-inner {
+      margin-top: 12px;
+    }
+    .v-label {
+      top: 15px;
+    }
+
+  }
+
+  /** --- Bugs */
+
+  /** v-alert: Vuetify 2.4.5 bug: The 'success' icon is dark mode. */
+  .v-alert--text.success--text .v-icon {
+    color: #4caf50 !important;
+  }
+
+  /** v-card: text and title break on letter instead of word by default */
+  .v-card__text, .v-card__title {
+    word-break: normal !important;
+  }
+}
