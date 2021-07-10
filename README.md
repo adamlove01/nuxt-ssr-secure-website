@@ -77,7 +77,7 @@ Exit psql
 
 ## Install a Node.js database driver in your project
 
-For postgres, 'pg' is already installed. If you are using another database, for example MariaDB or MySQL, use can uninstall 'pg' and install 'mysql' connector insead: 
+For postgres, 'pg' is already installed. If you are using another database, for example MariaDB or MySQL, use can uninstall 'pg' and install 'mysql' connector instead:  
 `cd nuxt-ssr-secure-website`  
 `npm install mysql`  
 
@@ -194,7 +194,8 @@ This file contains the configuration for the NuxtJS framework.
 The login system in this app uses JSON WebTokens to verify login. 
 
 **The AccessToken**
-This token is stored in-menory in Vuex and expires in 15 minutes. We are using Vuex for this data because other solutions such as client-side Cookies or localStorage are considered a security risk. They are javascript-accessible and can be hacked.
+
+This token is stored in-memory in Vuex and expires in 15 minutes. We are using Vuex for this data because other solutions such as client-side Cookies or localStorage are considered a security risk -- they are javascript-accessible and can be hacked.
 
 **The refreshToken**
 
@@ -210,8 +211,9 @@ If the user has disabled cookies in their browser, they can still remain logged 
 - Server-side pagination and filtering
 - Contact Us page
 - Newsletter signup widget
-- Youtube videos: Code walkthrough
-- Docs: nginx configuration 
+- Youtube videos for the project: Code walkthrough
+- Docs: NGINX configuration  
+- Docs: Explanation of variables in nuxt.config.js
 
 ## Author
 
