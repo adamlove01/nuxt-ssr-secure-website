@@ -5,7 +5,16 @@
 
 ## Overview
 
-This project is a basic, secure, production-ready website. It has email login, a database, a nav, a landing page, an admin page and security best practices. The code is clear and fully commented so you can easily customize it for your own purposes.  
+This project is a basic, secure, production-ready website. It has:
+- A Landing page with modern UI and sample sections
+- Nav with mobile-friendly menus 
+- Email registration and login
+- Admin page with create, read, update & delete operations 
+- Security best practices throughout.
+
+The code is clear and fully commented so you can easily customize it for your own purposes.  
+
+You can also use the project as a base for your own code demo that requires Nuxt, Node.js and/or Express.  
 
 ## Technology
 
@@ -35,8 +44,8 @@ This project is a basic, secure, production-ready website. It has email login, a
 
 **Clone Project and Install Dependencies**
 
-`git clone https://github.com/adamlove01/nuxt-SSR-secure-website.git`  
-`cd nuxt-SSR-secure-website`  
+`git clone https://github.com/adamlove01/nuxt-ssr-secure-website.git`  
+`cd nuxt-ssr-secure-website`  
 `npm install`
 
 ## Development Environment
@@ -66,16 +75,16 @@ Example for postgres on MacOS using brew:
 Exit psql  
 `\q`  
 
-## Install a database connector in your project
+## Install a Node.js database driver in your project
 
-For postgres, you can install 'pg':  
-`cd nuxt-SSR-secure-website`  
-`npm install pg`  
+For postgres, 'pg' is already installed. If you are using another database, for example MariaDB or MySQL, use can uninstall 'pg' and install 'mysql' connector insead: 
+`cd nuxt-ssr-secure-website`  
+`npm install mysql`  
 
 ## Create an .env file
 
 The `.env` file defines your environment variables for the project.  
-`cd nuxt-SSR-secure-website`  
+`cd nuxt-ssr-secure-website`  
 `touch .env`  
 
 Add your database connection information that you created above. The default DB_PORT will depend on which database you use. DB_CLIENT is the database connector from above.
@@ -104,18 +113,18 @@ DB_CHARSET='utf8'
 **Migrations**  
 The migration files are in the `/database/migrations` folder. They create tables in your existing database.  
 
-`cd nuxt-SSR-secure-website`  
+`cd nuxt-ssr-secure-website`  
 `knex migrate:latest --knexfile knexfile.cjs`  
 
 **Seeds**  
 The seed files are in the `/databse/seeds` folder. They add data to your tables.
 
-`cd nuxt-SSR-secure-website`  
+`cd nuxt-ssr-secure-website`  
 `knex seed:run --knexfile knexfile.cjs`  
 
 ## Start up the local server with hot reload
 
-`cd nuxt-SSR-secure-website`  
+`cd nuxt-ssr-secure-website`  
 `npm run dev`  
 
 When you see  
