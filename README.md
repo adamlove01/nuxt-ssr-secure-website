@@ -1,3 +1,4 @@
+# DEMO
 # Nuxt SSR Secure Website
 
 <img src="static/docs/app-screenshot.png" />
