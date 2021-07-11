@@ -148,23 +148,39 @@ First set up a database on the server and start it up.
 
 **Upload the project to your server**  
 
-You can use Git or some other method. A good place for your project is `/var/www/myDomain`.
+You can use Git or some other method. A good place for your project is `/var/www`.
 
 **Create an .env file**  
 
-Create a new `.env` file at the root of your server project. You will use all the same variables as on your local system `.env` file, but you need to change the database DB_ values to match your server database.  
+`cd [project root]`  
+`touch .env`  
 
-Also change these three values:  
+Create a new `.env` file at the root of your server project. You will use all the same variables as on your local system `.env` file, but you need to change the database DB_ values to match your server database.  
+ 
 `.env`
 ```
 NODE_ENV=production
 BASE_URL=http://localhost:3000
 BROWSER_BASE_URL=https://myDomain.org
+TOKEN_AUTH_SECRET=6f3dd6e7005ff901ec4330479363218e61e94fae4a86f072e44db4636b8dd7b2
+DB_PORT=5432
+DB_NAME=myDatabase
+DB_HOST=localhost
+DB_USER=myUser
+DB_PASSWORD=myPassword
+DB_CLIENT='pg'
+DB_CHARSET='utf8'
 ...
 ```
 BROWSER_BASE_URL is for Axios calls (configured in nuxt.config.js) and should match your domain url.  
 
 BASE_URL should be http://localhost:3000 if you are running your site behind NGINX, otherwise it should also match your domain url.  
+
+**Run migrations and seeds**  
+
+`cd [project root]`  
+`knex migrate:latest --knexfile knexfile.cjs`   
+`knex seed:run --knexfile knexfile.cjs`  
 
 **Build the project**  
 
