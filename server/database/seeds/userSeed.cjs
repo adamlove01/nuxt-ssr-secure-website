@@ -1,5 +1,5 @@
 exports.seed = function (knex) {
-  /** Deletes ALL existing entries */
+  /** Delete ALL existing entries */
   return knex('users')
     .del()
     .then(() =>
