@@ -9,7 +9,7 @@ Systemd is a service on most Linux systems. You can use it auto-start your apps 
 - 'Description' can be your domain name  
 - 'Environment=NODE_PORT' should match the proxy port if you are using NGINX. Otherwise you can remove this variable.  
 - 'WorkingDirectory' is the directory of your app.
-- 'ExecStart' is the path-to-node + the command ' server/start.js'. To find the Node path on your server, you can type `which node`
+- 'ExecStart' is the path-to-node + the command ' server/startApp.js'. To find the Node path on your server, you can type `which node`
 
 mydomain.service
 ```
