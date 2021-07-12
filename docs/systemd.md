@@ -23,7 +23,7 @@ Group=root
 Environment=NODE_PORT=3000
 Type=simple
 WorkingDirectory=/var/www/myApp
-ExecStart=/root/.nvm/versions/node/v14.16.1/bin/node server/start.js
+ExecStart=/root/.nvm/versions/node/v14.16.1/bin/node server/startApp.js
 
 Restart=always
 
