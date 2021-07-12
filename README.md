@@ -134,6 +134,14 @@ When you see
 ```
 go to `localhost:3000` in your browser to see the project running.
 
+## Admin login
+
+By default you can log in as an Admin user:  
+Email: `admin@admin.com`  
+Password: `beautifulHorseHippoAlgebra===9632`
+
+You should create a new admin user and then delete the default one when you go to production!
+
 ## Sending emails from your server
 
 If you try to register a new user at this point, the verification email will not be sent. To send email from your server you will need to configure Nodemailer and an email delivery provider. You can follow this guide:

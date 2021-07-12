@@ -9,7 +9,7 @@ exports.seed = function (knex) {
           name: 'admin',
           email: 'admin@admin.com',
           password:
-            '$2a$10$Wpm3wohTTEkP2KMKsX2ccO.82hgOKoMLd096L08yPpYu/JwF6Bejm',
+            '$2a$10$sAI76ulPDz2Kud6Aau1AUemMiy7JzW6KD9.SlFCHOWysIb0GCiQp6',
           image: '',
           type: 'admin',
           status: 'active',
