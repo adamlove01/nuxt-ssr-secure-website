@@ -144,6 +144,12 @@
       >
         {{ errors.other }}
       </v-alert>
+
+      <div class="ma-auto">
+        <v-alert text type="info" class="pa-7 mt-8" icon="mdi-lock">
+          <b>This is a demo</b> — Database changes are locked.
+        </v-alert>
+      </div>
     </v-container>
   </v-container>
 </template>
@@ -300,6 +306,8 @@ export default {
       this.$refs.form.resetValidation()
 
       /** --- Server-side: Create user */
+      // eslint-disable-next-line no-constant-condition
+      if (1 === 1) return 'success'
 
       /** Create the user in db */
       const [err, res] = await Try(
@@ -363,6 +371,8 @@ export default {
       this.$refs.form.resetValidation()
 
       /** --- Server-side: Update user */
+      // eslint-disable-next-line no-constant-condition
+      if (1 === 1) return 'success'
 
       /** Update the user in db */
       const [err, res] = await Try(
@@ -406,6 +416,9 @@ export default {
 
     /** Delete User */
     async deleteUser() {
+      // eslint-disable-next-line no-constant-condition
+      if (1 === 1) return 'success'
+
       /** Delete the user in db */
       const [err, res] = await Try(
         this.$axios.delete(`/server/users/delete/${this.input.id}`, {

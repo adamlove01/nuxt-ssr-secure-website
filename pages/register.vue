@@ -1,9 +1,13 @@
 <template>
   <v-container id="section-1" fluid>
     <v-container v-if="!showSignUp" class="pt-8 d-flex">
-      <span class="ma-auto">
+      <div class="ma-auto">
         <h1 class="text-h4 text-center mt-8">Sign-up is disabled.</h1>
-      </span>
+
+        <v-alert text type="info" class="pa-7 mt-8" icon="mdi-lock">
+          <b>This is a demo</b> — new sign-ups are locked.
+        </v-alert>
+      </div>
     </v-container>
 
     <v-container v-else class="pt-8">
@@ -125,7 +129,7 @@ export default {
   /** Set showSignUp = false to disable all signups */
   data() {
     return {
-      showSignUp: true,
+      showSignUp: false,
       registerSuccess: false,
       showPassword: false,
       input: { name: '', email: '', password: '' },

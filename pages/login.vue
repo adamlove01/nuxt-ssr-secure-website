@@ -107,6 +107,24 @@
           >Sign up now!</v-btn
         >
       </p>
+
+      <div class="ma-auto" style="max-width: 400px">
+        <v-alert
+          text
+          type="info"
+          class="pa-7 mt-8 text-center"
+          :icon="showIcon"
+        >
+          <h3>This is a demo</h3>
+          <p>Logins for Admin and Client:</p>
+          <v-icon small color="info">mdi-email</v-icon>
+          <span class="mr-2">admin@admin.com</span>
+          <v-icon small color="info">mdi-lock</v-icon> admin123 <br />
+          <v-icon small color="info">mdi-email</v-icon>
+          leeloo@mydomain.com
+          <v-icon small color="info">mdi-lock</v-icon> leeloo123
+        </v-alert>
+      </div>
     </v-container>
   </v-container>
 </template>
@@ -134,7 +152,8 @@ export default {
 
   data() {
     return {
-      showSignUp: false,
+      showIcon: false,
+      showSignUp: true,
       showPassword: false,
       showCaptcha: false,
       captcha: { data: '', text: '' },
