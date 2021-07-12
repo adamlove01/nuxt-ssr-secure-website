@@ -3,6 +3,10 @@
 <img src="static/docs/app-screenshot.png" />
 <br><br>
 
+## Demo
+
+[Project demo - https://demo.olbworld.org](https://demo.olbworld.org/)
+
 ## Overview
 
 This project is a basic, secure, production-ready website. It has:
