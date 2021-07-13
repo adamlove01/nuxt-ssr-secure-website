@@ -247,9 +247,5 @@ If the user has disabled cookies in their browser, they can still remain logged 
 
 [Adam Love](https://github.com/adamlove01)  
 
-## License
-
-This project is licensed under the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)
-
 
 
