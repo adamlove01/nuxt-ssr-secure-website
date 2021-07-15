@@ -1,7 +1,19 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 
+/** Get host and port from BASE_URL */
+const [HOST, PORT] = process.env.BASE_URL.replace(
+  new RegExp(/^https?:\/\//),
+  ''
+).split(':')
+
 export default {
+  /** Define server host and port */
+  server: {
+    host: HOST,
+    port: PORT,
+  },
+
   /**
    * Headers of the page
    * Favicons were generated using https://realfavicongenerator.net/
