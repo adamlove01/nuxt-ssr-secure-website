@@ -160,7 +160,7 @@ export default {
     },
   },
   /** Express server */
-  serverMiddleware: ['~/server/addRoutes.js'],
+  serverMiddleware: ['~/server/express.js'],
 
   telemetry: false,
 }

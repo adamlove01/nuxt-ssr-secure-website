@@ -4,6 +4,10 @@
 <img src="static/docs/app-screenshot.png" />
 <br><br>
 
+## Demo
+
+[Project demo - https://demo.olbworld.org](https://demo.olbworld.org/)
+
 ## Overview
 
 This project is a basic, secure, production-ready website. It has:
@@ -115,12 +119,16 @@ DB_CHARSET='utf8'
 The migration files are in the `/database/migrations` folder. They create tables in your existing database.  
 
 `cd nuxt-ssr-secure-website`  
-`knex migrate:latest --knexfile knexfile.cjs`  
+`npx knex migrate:latest --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
+`knex migrate:latest --knexfile knexfile.cjs`   
 
 **Seeds**  
 The seed files are in the `/databse/seeds` folder. They add data to your tables.
 
 `cd nuxt-ssr-secure-website`  
+`npx knex seed:run --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
 `knex seed:run --knexfile knexfile.cjs`  
 
 ## Start up the local server with hot reload
@@ -134,6 +142,14 @@ When you see
 ✓ Server  
 ```
 go to `localhost:3000` in your browser to see the project running.
+
+## Admin login
+
+By default you can log in as an Admin user:  
+Email: `admin@admin.com`  
+Password: `beautifulHorseHippoAlgebra===9632`
+
+You should create a new admin user and then delete the default one when you go to production!
 
 ## Sending emails from your server
 
@@ -180,8 +196,8 @@ BASE_URL should be http://localhost:3000 if you are running your site behind NGI
 **Run migrations and seeds**  
 
 `cd [project root]`  
-`knex migrate:latest --knexfile knexfile.cjs`   
-`knex seed:run --knexfile knexfile.cjs`  
+`[npx?] knex migrate:latest --knexfile knexfile.cjs`   
+`[npx?] knex seed:run --knexfile knexfile.cjs`  
 
 **Build the project**  
 
@@ -235,10 +251,6 @@ If the user has disabled cookies in their browser, they can still remain logged 
 ## Author
 
 [Adam Love](https://github.com/adamlove01)  
-
-## License
-
-This project is licensed under the [GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 
 
