@@ -6,9 +6,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon server/startApp.js --watch server",
+    "dev": "nodemon --watch server --exec \"nuxt\"",
     "build": "nuxt build",
-    "start": "node server/startApp.js",
+    "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {

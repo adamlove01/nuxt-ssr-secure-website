@@ -43,15 +43,15 @@ export async function create(req, res) {
   if (v.name === 'admin') {
     /** Check db for existing 'admin' name */
     /** @var {Array} r - row data from db */
-    const [err, r] = await Try(
+    const [err1, r1] = await Try(
       db.knex('users').select('*').where('name', 'admin')
     )
 
     /** Error: DB error */
-    if (err) return res.json(response('error, user, errorCreating', err))
+    if (err1) return res.json(response('error, user, errorCreating', err1))
 
     /** Error: admin name is in use */
-    if (r.length > 0) return res.json(response('error, "admin" name, inUse'))
+    if (r1.length > 0) return res.json(response('error, "admin" name, inUse'))
 
     v.type = 'admin'
   }

@@ -5,7 +5,6 @@ exports.seed = function (knex) {
     .then(() =>
       knex('users').insert([
         {
-          id: 1,
           name: 'admin',
           email: 'admin@admin.com',
           password:
@@ -18,7 +17,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 2,
           name: 'Joel Barish',
           email: 'joelbarish@mydomain.com',
           password:
@@ -31,7 +29,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 3,
           name: 'Clementine Kruczynski',
           email: 'clementinekruczynski@mydomain.com',
           password:
@@ -44,7 +41,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 4,
           name: 'Jason Bourne',
           email: 'jasonbourne@mydomain.com',
           password:
@@ -57,7 +53,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 5,
           name: 'Marie St. Jacques',
           email: 'mariestjacques@mydomain.com',
           password:
@@ -70,7 +65,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 6,
           name: 'Dom Cobb',
           email: 'domcobb@mydomain.com',
           password:
@@ -83,7 +77,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 7,
           name: 'Robert Michael Fischer',
           email: 'robertmichaelfischer@mydomain.com',
           password:
@@ -96,7 +89,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 8,
           name: 'Will Hunting',
           email: 'willhunting@mydomain.com',
           password:
@@ -109,7 +101,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 9,
           name: 'Skylar S',
           email: 'skylars@mydomain.com',
           password:
@@ -122,7 +113,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 10,
           name: 'Colter Stevens',
           email: 'colterstevens@mydomain.com',
           password:
@@ -135,7 +125,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 11,
           name: 'Christina Warren',
           email: 'christinawarren@mydomain.com',
           password:
@@ -148,7 +137,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 12,
           name: 'Rick Deckard',
           email: 'rickdeckard@gmail.com',
           password:
@@ -161,7 +149,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 13,
           name: 'Rachael Tyrell',
           email: 'rachaeltyrell@mydomain.com',
           password:
@@ -174,7 +161,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 14,
           name: 'John Anderton',
           email: 'johnanderton@gmail.com',
           password:
@@ -187,7 +173,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 15,
           name: 'Agatha Lively',
           email: 'agathalively@mydomain.com',
           password:
@@ -200,7 +185,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 16,
           name: 'Lincoln Six Echo',
           email: 'lincolnsixecho@mydomain.com',
           password:
@@ -213,7 +197,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 17,
           name: 'Jordan Two Delta',
           email: 'jordantwodelta@mydomain.com',
           password:
@@ -226,7 +209,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 18,
           name: 'Phil Connors',
           email: 'philconnors@mydomain.com',
           password:
@@ -239,7 +221,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 19,
           name: 'Rita Hanson',
           email: 'ritahanson@mydomain.com',
           password:
@@ -252,7 +233,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 20,
           name: 'Korben Dallas',
           email: 'korbendallas@mydomain.com',
           password:
@@ -265,7 +245,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 21,
           name: 'Leeloo',
           email: 'leeloo@mydomain.com',
           password:
@@ -278,7 +257,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 22,
           name: 'David Norris',
           email: 'davidnorris@mydomain.com',
           password:
@@ -291,7 +269,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 23,
           name: 'Elise Sellas',
           email: 'elisesellas@mydomain.com',
           password:
@@ -304,7 +281,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 24,
           name: 'Donald J. Darko',
           email: 'donaldjdarko@mydomain.com',
           password:
@@ -317,7 +293,6 @@ exports.seed = function (knex) {
           last_login: knex.fn.now(),
         },
         {
-          id: 25,
           name: 'Gretchen Ross',
           email: 'gretchenross@mydomain.com',
           password:
