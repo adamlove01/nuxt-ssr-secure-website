@@ -10,11 +10,15 @@ Seed files must end in .cjs because currently KnexJS does not support ESM direct
 
 To run all seed files in the `/database/seeds` folder, `cd` to the root of your project. Then:
 
-`knex seed:run --knexfile knexfile.cjs`
+`npx knex seed:run --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
+`knex seed:run --knexfile knexfile.cjs`  
 
 To run a specific migration file in the `/database/seeds` folder:
 
-`knex seed:run --specific=name_of_file.cjs --knexfile knexfile.cjs`
+`npx knex seed:run --specific=name_of_file.cjs --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
+`knex seed:run --specific=name_of_file.cjs --knexfile knexfile.cjs`  
 
 ## More Info
 

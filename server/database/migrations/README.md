@@ -8,15 +8,20 @@ Migration and seed files must end in .cjs because currently KnexJS does not supp
 
 To run all migration files in the `/database/migrations` folder, `cd` to the root of your project. Then:
 
-`knex migrate:latest --knexfile knexfile.cjs`
+`npx knex migrate:latest --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
+`knex migrate:latest --knexfile knexfile.cjs`  
 
 To run a specific migration file in the `/database/migrations` folder:
 
+`npx knex migrate:up name_of_file.cjs --knexfile knexfile.cjs`
+If you installed Knex globally (npm install knex -g)  
 `knex migrate:up name_of_file.cjs --knexfile knexfile.cjs`
 
 ## More Info
 
 [Knexjs.org - Migrations](https://knexjs.org/#Migrations)
+
 
 
 

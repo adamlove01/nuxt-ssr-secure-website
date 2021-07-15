@@ -118,12 +118,16 @@ DB_CHARSET='utf8'
 The migration files are in the `/database/migrations` folder. They create tables in your existing database.  
 
 `cd nuxt-ssr-secure-website`  
-`knex migrate:latest --knexfile knexfile.cjs`  
+`npx knex migrate:latest --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
+`knex migrate:latest --knexfile knexfile.cjs`   
 
 **Seeds**  
 The seed files are in the `/databse/seeds` folder. They add data to your tables.
 
 `cd nuxt-ssr-secure-website`  
+`npx knex seed:run --knexfile knexfile.cjs`  
+If you installed Knex globally (npm install knex -g)  
 `knex seed:run --knexfile knexfile.cjs`  
 
 ## Start up the local server with hot reload
@@ -191,8 +195,8 @@ BASE_URL should be http://localhost:3000 if you are running your site behind NGI
 **Run migrations and seeds**  
 
 `cd [project root]`  
-`knex migrate:latest --knexfile knexfile.cjs`   
-`knex seed:run --knexfile knexfile.cjs`  
+`[npx?] knex migrate:latest --knexfile knexfile.cjs`   
+`[npx?] knex seed:run --knexfile knexfile.cjs`  
 
 **Build the project**  
 
