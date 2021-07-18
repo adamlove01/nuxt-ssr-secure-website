@@ -34,7 +34,7 @@ const messages = {
 }
 
 /**
- * msg - Create a list of error Codes and custom messages for Joi schemas,
+ * msg - Create a list of error Codes and custom messages for Server errors,
  * customized based on the parameters
  *
  * @param {String} name - Descriptive name of the field
