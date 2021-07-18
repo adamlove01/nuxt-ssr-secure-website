@@ -14,7 +14,7 @@ The sanitizeHtml script contains functions to remove all HTML, or only dangerous
 
 It is important to understand that Joi is being used to **not only** validate, but **also** to alter the input, and to return optimized input. For example, in a schema we can `.trim()` the input, or convert to `.lowercase()`, or call a custom script like `.custom(html.removeAll)` and these change the return values. 
 
-The key to this validation method is the JoiValidate.js script. Using this script we can pass **any subset** of input keys, and input object and a schema. The validate() funcyion will then  
+The key to this validation method is the JoiValidate.js script. Using this script we can pass **any subset** of input keys, an input object and a schema. The validate() function will then  
 - a) Find the input keys in the input object;
 - b) Find the input keys in the schema; and
 - c) Validate the input values based on the schema key rules.
