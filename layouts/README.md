@@ -2,7 +2,7 @@
 
 ## default.vue
 
-This file is a special NUXT component. If it's defined, all pages in the /pages folder will inherit it. It includes the Nav and App Bar for desktop and mobile views. 
+This file is a special NUXT component. If it's defined, all pages in the /pages folder will inherit it. It includes the Nav and App Bar for desktop and mobile views.
 
 There is quite a bit of SCSS styling to get the nav and menus to work properly at all screen widths. This is pretty typical for a site in production. The default nav never does what you want it to...
 

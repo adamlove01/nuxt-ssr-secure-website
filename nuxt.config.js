@@ -170,6 +170,10 @@ export default {
       }
     },
   },
+
+  /** Set NodeJS Environment */
+  dev: process.env.NODE_ENV !== 'production',
+
   /** Express server */
   serverMiddleware: ['~/server/express.js'],
 

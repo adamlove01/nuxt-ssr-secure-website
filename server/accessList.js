@@ -25,6 +25,10 @@ export const clientList = [
   ['/logout', ''],
   ['/register', ''],
   ['/verify', ''],
+  ['/forgot-password', ''],
+  ['/reset-password', ''],
+  ['/contact', ''],
+  ['/about', ''],
   ['/account', 'client, admin'],
   ['/admin', 'admin'],
 ]
@@ -48,6 +52,11 @@ export const serverList = [
   ['/server/login', ''],
   ['/server/logout', ''],
   ['/server/register', ''],
+  ['/server/verify', ''],
+  ['/server/forgot-password', ''],
+  ['/server/reset-password', ''],
+  ['/server/sendContactEmail', ''],
   ['/server/admin', 'admin'],
   ['/server/users/*', 'admin'],
+  ['/server/captcha', ''],
 ]

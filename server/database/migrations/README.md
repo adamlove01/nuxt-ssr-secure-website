@@ -14,13 +14,14 @@ If you installed Knex globally (npm install knex -g)
 
 To run a specific migration file in the `/database/migrations` folder:
 
-`npx knex migrate:up name_of_file.cjs --knexfile knexfile.cjs`  
+`npx knex migrate:up name_of_file.cjs --knexfile knexfile.cjs`
 If you installed Knex globally (npm install knex -g)  
-`knex migrate:up name_of_file.cjs --knexfile knexfile.cjs`  
+`knex migrate:up name_of_file.cjs --knexfile knexfile.cjs`
 
 ## More Info
 
 [Knexjs.org - Migrations](https://knexjs.org/#Migrations)
+
 
 
 

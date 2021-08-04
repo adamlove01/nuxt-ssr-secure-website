@@ -12,16 +12,16 @@ dotenv.config()
  * @param  {String}  user.email - The user email address
  * @return {Void}
  */
-export async function sendConfirmationEmail(user) {
+export async function sendPasswordResetEmail(user) {
   /** Create Json WebToken */
   const dateISO = new Date().toISOString()
-  const mail = { id: user.id, type: 'sendConfirmationEmail', created: dateISO }
+  const mail = { id: user.id, type: 'sendPasswordResetEmail', created: dateISO }
   const token = jwt.sign(mail, process.env.TOKEN_AUTH_SECRET, {
     expiresIn: '1d',
   })
 
   /**
-   * Set the URL path for the confirmation link in the email.
+   * Set the URL path for the password reset link in the email.
    *
    * Note: when dev testing, the link will be 'http://localhost:3000/...'
    * This may be flagged as spam since it is a suspicious link, and will
@@ -29,7 +29,7 @@ export async function sendConfirmationEmail(user) {
    *
    * On your live server it will be a 'real' link and SHOULD be delivered okay.
    */
-  const url = `${process.env.BASE_URL}/verify?token=${token}`
+  const url = `${process.env.BASE_URL}/reset-password?token=${token}`
 
   /**
    * Create nodemailer transporter
@@ -58,20 +58,18 @@ export async function sendConfirmationEmail(user) {
     transporter.sendMail({
       from: `"Your Website" <${process.env.ADMIN_EMAIL}>`,
       to: user.email,
-      subject: 'Verify Your Account',
+      subject: 'Reset Your Password',
       html: `Hello!
       <br><br>
-      Thank you for signing up at Your Website!
+      Please click on this link to reset your password:
       <br><br>
-      Please click on this link to verify your account:
-      <br><br>
-      <a href="${url}" style="background-color: #0178c7; border: 1px solid #0178c7; border-radius: 12px; color: #ffffff; display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 34px; text-align: center; text-decoration: none; width: 175px; -webkit-text-size-adjust: none; mso-hide: all">VERIFY NOW</a>
+      <a href="${url}" style="background-color: #0178c7; border: 1px solid #0178c7; border-radius: 12px; color: #ffffff; display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 34px; text-align: center; text-decoration: none; width: 175px; -webkit-text-size-adjust: none; mso-hide: all">RESET PASSWORD</a>
       <br><br>
       Thank you so much!`,
     })
   )
 
-  /** Error: SendMail */
+  /** Error: sendMail */
   if (err) console.log(err)
 
   /** Error: No data */

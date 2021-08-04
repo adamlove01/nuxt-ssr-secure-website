@@ -1,7 +1,10 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import { userRoutes } from './routes/userRoutes'
+import { authRoutes } from './routes/authRoutes'
 import { captchaRoutes } from './routes/captchaRoutes'
+import { loginRoutes } from './routes/loginRoutes'
+import { mailRoutes } from './routes/mailRoutes'
+import { userRoutes } from './routes/userRoutes'
 
 /** Create express instance */
 const app = express()
@@ -15,8 +18,11 @@ app.use(cookieParser())
 app.disable('x-powered-by')
 
 /** Add Express Routes */
-app.use(userRoutes)
+app.use(authRoutes)
 app.use(captchaRoutes)
+app.use(mailRoutes)
+app.use(loginRoutes)
+app.use(userRoutes)
 
 /**
  * Express has access to the root of the project.

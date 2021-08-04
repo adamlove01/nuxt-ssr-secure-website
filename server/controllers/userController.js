@@ -1,19 +1,17 @@
 import db from '../database/knex.cjs'
 import { schema } from '../../validation/schemas/userSchema'
-import { authSchema } from '../../validation/schemas/authorizeSchema'
 import { validate, response, joiResponse } from '../../validation/JoiValidate'
 import { sendConfirmationEmail } from '../utilities/sendConfirmationEmail'
-import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import Try from '../../helpers/tryCatch'
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-/** Register user */
+/** Create user */
 export async function create(req, res) {
   /** --- Validate input */
 
-  /** Sanitize and validate registration input */
+  /** Sanitize and validate user input */
   /** @var {Array} - [vErr false || {object}, v {object} || false] */
   const [vErr, v] = validate(
     'name, email, password, type, status',
@@ -43,15 +41,15 @@ export async function create(req, res) {
   if (v.name === 'admin') {
     /** Check db for existing 'admin' name */
     /** @var {Array} r - row data from db */
-    const [err, r] = await Try(
+    const [err1, r1] = await Try(
       db.knex('users').select('*').where('name', 'admin')
     )
 
     /** Error: DB error */
-    if (err) return res.json(response('error, user, errorCreating', err))
+    if (err1) return res.json(response('error, user, errorCreating', err1))
 
     /** Error: admin name is in use */
-    if (r.length > 0) return res.json(response('error, "admin" name, inUse'))
+    if (r1.length > 0) return res.json(response('error, "admin" name, inUse'))
 
     v.type = 'admin'
   }
@@ -210,189 +208,4 @@ export async function del(req, res) {
 
   /** Return message to the client */
   return res.json(response('success, user, deleted', count))
-}
-
-/** Log in user */
-export async function login(req, res) {
-  /** --- Validate input */
-
-  /** Sanitize and validate login input */
-  /** @var {Array} - [vErr false || {object}, v {object} || false] */
-  const [vErr, v] = validate('email, password', req.body, schema)
-
-  /** Error: Invalid input */
-  if (vErr || !v) return res.json(joiResponse(vErr))
-
-  /** --- Get user data using email */
-
-  /** @var {Array} row - row data from db matching email */
-  const [err, row] = await Try(
-    db.knex('users').select('*').where('email', v.email)
-  )
-
-  /** Error: db error */
-  if (err) return res.json(response('error, user, errorLoggingIn'))
-
-  /** Error: User with that email not found */
-  if (row.length < 1) return res.json(response('error, email, notFoundEntered'))
-
-  /** @var {Object} r - user data */
-  const r = row[0]
-
-  /** --- Validate password */
-
-  /** Compare submitted password with password in DB */
-  /** @var {Boolean} isMatched - whether password matches */
-  const isMatched = await bcrypt.compare(v.password, r.password)
-
-  /** Error: Invalid password */
-  if (isMatched === false) return res.json(response('error, password, invalid'))
-
-  /** --- Check if user is active */
-
-  /** Error: User is pending */
-  if (r.status === 'pending')
-    return res.json(response('error, account, emailPending'))
-
-  /** Error: User not active */
-  if (r.status === 'inactive')
-    return res.json(response('error, account, emailInactive'))
-
-  /** --- Update last_login */
-
-  /** Update last_login in db */
-  const last_login = { last_login: new Date().toISOString() }
-  /** @var {Array} r2[0] - id(s) of row(s) updated in db */
-  // eslint-disable-next-line
-  const [err2, r2] = await Try(
-    db.knex('users').update(last_login, ['id']).where('id', r.id)
-  )
-
-  /** Error: DB Error */
-  if (err2) return res.json(response('error, user, errorLoggingIn'))
-
-  /** --- Create Tokens */
-
-  /** Set user data and token data */
-  const user = { id: r.id, email: r.email, name: r.name, type: r.type }
-  let tokenData = user
-
-  /** Create accessToken for Vuex. Randomize so tokens are unique. */
-  tokenData.rand = Math.floor(Math.random() * 10000000)
-  const accessToken = jwt.sign(tokenData, process.env.TOKEN_AUTH_SECRET, {
-    expiresIn: '15 minutes',
-  })
-
-  /** Create refreshToken for cookie. Randomize so tokens are unique. */
-  tokenData.rand = Math.floor(Math.random() * 10000000)
-  const refreshToken = jwt.sign(tokenData, process.env.TOKEN_AUTH_SECRET, {
-    expiresIn: '7 days',
-  })
-
-  /** Create cookie. 'maxAge' must be the same as 'expiresIn' above */
-  res.cookie('refreshToken', refreshToken, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days, in milliseconds
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production' ? true : false,
-    sameSite: 'strict',
-  })
-
-  /** --- Success */
-
-  /** Return accessToken and user data, to be inserted into Vuex */
-  return res.json(
-    response('success, user, loggedIn', {
-      token: accessToken,
-      user: user,
-      loggedIn: 'yes',
-    })
-  )
-}
-
-/** Log out user */
-export async function logout(req, res) {
-  /** --- Delete cookie */
-
-  /** Get cookie if exists */
-  let refreshToken = req.cookies.refreshToken || ''
-
-  /** Delete cookie */
-  if (refreshToken)
-    /**
-     * Note: The browser requires that we pass the same options
-     * as we used to set the cookie.
-     */
-    res.clearCookie('refreshToken', refreshToken, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days, in milliseconds
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production' ? true : false,
-      sameSite: 'strict',
-    })
-
-  /** --- Success */
-
-  /** Return message to client */
-  return res.json(response('success, user, loggedOut'))
-}
-
-/** Verify user email */
-export async function verify(req, res) {
-  /** --- Validate input */
-
-  /** Sanitize and validate verification token input */
-  /** @var {Array} - [vErr false || {object}, v {object} || false] */
-  const [vErr, v] = validate('token', req.body, authSchema)
-
-  /** Error: Invalid input */
-  if (vErr || !v) return res.json(joiResponse(vErr))
-
-  /** --- Decode user data */
-
-  /** @var {Object|false} r - decoded token data */
-  let decodedUserData = false
-  try {
-    decodedUserData = jwt.verify(v.token, process.env.TOKEN_AUTH_SECRET)
-  } catch (err) {
-    /** Error: Verification failed or token is expired */
-    return res.json(response('error, user, notFound'))
-  }
-
-  /** --- Check if user id exists */
-
-  /** @var {Array} r - rows matching id in db */
-  const [err, r] = await Try(
-    db.knex('users').select('*').where('id', decodedUserData.id).limit(1)
-  )
-
-  /** Error: db error */
-  if (err) return res.json(response('error, user, errorUpdating'))
-
-  /** Error: user not in db */
-  if (r.length < 1) return res.json(response('error, user, notFound'))
-
-  /** --- Save the user status to 'active' */
-
-  /** Initialize user data */
-  const dateISO = new Date().toISOString()
-  const user = {
-    status: 'active',
-    updated_at: dateISO,
-  }
-
-  /** Update user in db */
-  /** @var {Array} row - user row returned from db  */
-  const [err2, row] = await Try(
-    db.knex('users').update(user, ['id', 'name', 'email']).where('id', r[0].id)
-  )
-
-  /** Error: db error */
-  if (err2) return res.json(response('error, user, errorUpdating'))
-
-  /** Error: Nothing inserted in db */
-  if (row === undefined) return res.json(response('error, user, notFound'))
-
-  /** --- Success */
-
-  /** Return message to client */
-  return res.json(response('success, user, updated', row[0]))
 }
