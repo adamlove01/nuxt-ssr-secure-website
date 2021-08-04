@@ -14,7 +14,7 @@ export default {
   ...
 ```
 
-This function works by calling the server path `/server/authorize`, which runs the server-side function `/server/authorization/authorize.js`.
+This function works by calling the server path `/server/authorize`, which runs the controller `/server/controllers/authController.js`.
 This in turn checks if the page is listed in the `/server/accessList.js` file, and then checks if the login type of the user matches the accessList. It then returns a status code to the `/middleware/authorize.js` function.
 
 These are the possible status codes:

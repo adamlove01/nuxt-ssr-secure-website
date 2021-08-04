@@ -13,6 +13,14 @@
           <v-toolbar-title class="body-1 mr-10">Home</v-toolbar-title>
         </nuxt-link>
 
+        <nuxt-link v-if="mdAndUp" to="/about">
+          <v-toolbar-title class="body-1 mr-10">About</v-toolbar-title>
+        </nuxt-link>
+
+        <nuxt-link v-if="mdAndUp" to="/contact">
+          <v-toolbar-title class="body-1 mr-10">Contact</v-toolbar-title>
+        </nuxt-link>
+
         <nuxt-link
           v-if="mdAndUp && $store.state.login.type === 'admin'"
           to="/admin"
@@ -102,6 +110,20 @@
                   <v-list-item-title>Home</v-list-item-title>
                 </v-list-item>
 
+                <v-list-item nuxt to="/about">
+                  <v-list-item-icon class="mr-4">
+                    <v-icon>mdi-exclamation</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>About</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item nuxt to="/contact">
+                  <v-list-item-icon class="mr-4">
+                    <v-icon>mdi-email</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>Contact</v-list-item-title>
+                </v-list-item>
+
                 <v-list-item
                   v-if="$store.state.login.type === 'admin'"
                   nuxt
@@ -129,6 +151,7 @@
     <v-main>
       <nuxt />
     </v-main>
+    <TheFooter></TheFooter>
   </v-app>
 </template>
 

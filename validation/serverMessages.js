@@ -11,6 +11,8 @@ const messages = {
   emailInactive: `The <name> is not active.`,
   emailPending: `The <name> is pending. Please check your email to verify
    your account.`,
+  emailSentToUser: `The <name> has been sent. Please check your email.`,
+  emailSent: `The <name> has been sent. Thank you!`,
   errorCreating: `Error while creating <name>. Please try again later.`,
   errorDeleting: `Error while deleting <name>. Please try again later.`,
   errorLoggingIn: `Error while logging in the <name>. Please try again later.`,
@@ -31,6 +33,7 @@ const messages = {
   unauthorized: `<name> unauthorized`,
   unknownError: `Unknown error. Please try again later.`,
   updated: `<name> updated successfully.`,
+  verified: `<name> verified.`,
 }
 
 /**

@@ -13,6 +13,17 @@
       </v-alert>
 
       <v-alert
+        v-if="$route.query.passwordUpdated === 'yes'"
+        text
+        type="success"
+        class="mx-auto"
+        max-width="400"
+      >
+        Password updated! &nbsp;<v-icon>mdi-emoticon-cool-outline</v-icon>&nbsp;
+        Thank you!
+      </v-alert>
+
+      <v-alert
         v-if="$route.query.from"
         text
         type="info"
@@ -94,9 +105,7 @@
           </v-form>
 
           <p v-if="errors.password" class="mt-4 mb-0 text-center text-body-1">
-            <nuxt-link to="/users/forgotPassword"
-              >Forgot your password?</nuxt-link
-            >
+            <nuxt-link to="/forgot-password">Forgot your password?</nuxt-link>
           </p>
         </v-card-text>
       </v-card>
@@ -134,7 +143,7 @@ export default {
 
   data() {
     return {
-      showSignUp: false,
+      showSignUp: true,
       showPassword: false,
       showCaptcha: false,
       captcha: { data: '', text: '' },
@@ -213,8 +222,6 @@ export default {
 
       /** @var {Object} r - r.status, r.message, r[other] from server */
       const r = res.data
-
-      console.log('error-type=', r.name)
 
       /** Error: Input. Show JoiValidate() server error(s) */
       if (r.status === 'inputError') return this.showInputErrors(r)

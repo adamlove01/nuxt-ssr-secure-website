@@ -44,7 +44,7 @@ export const serverList = [
 ```
 
 
-## authorize.js
+## authController.js
 ALL `/pages` paths on the site must call the `authorize` function, including pages that do not require login. Otherwise the page nav will not show the user's login status, and access control will not be enforced on that page.
 
 Example: `/pages/myPage.vue`:
@@ -94,7 +94,7 @@ For server authorization (initiated by an Axios server call on the client, to a 
 On success, the server calls next() and continues on normally.
 <br>
 
-## checkAccess.js
+## function: checkAccess.js
 This function checks if the user type has access to the route. It returns one of these codes:
 
 | Code         | Description                                      |
@@ -106,7 +106,7 @@ This function checks if the user type has access to the route. It returns one of
 
 <br>
 
-## checkLogin.js
+## function: checkLogin.js
 This function checks the user's login status using the accessToken and refreshToken.
 
 

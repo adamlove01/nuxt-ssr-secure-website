@@ -94,7 +94,10 @@ export function response(message, data = null) {
    * @param {String} msgKey - The message key must be from the list at
    *                          /validation/serverMessages.js
    */
-  const [status, name, msgKey] = message.replace(/\s/g, '').split(',')
+  const [status, name, msgKey] = message
+    .trim()
+    .replace(/\s*,\s*/g, ',')
+    .split(',')
   return {
     message: msg(name, msgKey),
     status: status,
