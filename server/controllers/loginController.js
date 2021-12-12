@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import Try from '../../helpers/tryCatch'
 import * as dotenv from 'dotenv'
+import consola from 'consola'
 dotenv.config()
 
 /** Register user */
@@ -62,7 +63,7 @@ export async function register(req, res) {
   /** Encrypt password and create timestamp */
   const salt = bcrypt.genSaltSync(10)
   const encryptedPassword = bcrypt.hashSync(v.password, salt)
-  const dateISO = new Date().toISOString()
+  const date = new Date().toISOString().replace('T', ' ').split('.')[0]
 
   /** Initialize user data */
   let user = {
@@ -71,14 +72,23 @@ export async function register(req, res) {
     password: encryptedPassword,
     type: v.type,
     status: v.status,
-    created_at: dateISO,
-    updated_at: dateISO,
-    last_login: dateISO,
+    created_at: date,
+    updated_at: date,
+    last_login: date,
   }
 
   /** Save user in db */
   /** @var {Array} r2 - row id returned from db */
-  const [err2, r2] = await Try(db.knex('users').insert(user).returning('id'))
+  const [err2, r2] = await Try(
+    db
+      .knex('users')
+      .insert(user)
+      .then(function (id) {
+        return id
+      })
+  )
+  consola.info(`r2=${r2}`)
+  console.log(`r2=${r2}`)
 
   /** Error: db error */
   if (err2) return res.json(response('error, user, errorCreating', err2))
@@ -104,11 +114,13 @@ export async function login(req, res) {
   if (vErr || !v) return res.json(joiResponse(vErr))
 
   /** --- Get user data using email */
+  console.log('got here')
 
   /** @var {Array} row - row data from db matching email */
   const [err, row] = await Try(
     db.knex('users').select('*').where('email', v.email)
   )
+  console.log('Users selected')
 
   /** Error: db error */
   if (err) return res.json(response('error, user, errorLoggingIn'))
@@ -124,6 +136,8 @@ export async function login(req, res) {
   /** Compare submitted password with password in DB */
   /** @var {Boolean} isMatched - whether password matches */
   const isMatched = await bcrypt.compare(v.password, r.password)
+
+  console.log(`isMatched = ${isMatched}`)
 
   /** Error: Invalid password */
   if (isMatched === false) return res.json(response('error, password, invalid'))
@@ -141,12 +155,14 @@ export async function login(req, res) {
   /** --- Update last_login */
 
   /** Update last_login in db */
-  const last_login = { last_login: new Date().toISOString() }
-  /** @var {Array} r2[0] - id(s) of row(s) updated in db */
+  const last_login = { last_login: new Date().toISOString().split('.')[0] }
+  /** @var {Array} r2 - Returns [1] in "mysql/sqlite/oracle", [] in "postgres" */
   // eslint-disable-next-line
   const [err2, r2] = await Try(
-    db.knex('users').update(last_login, ['id']).where('id', r.id)
+    db.knex('users').update(last_login).where('id', r.id)
   )
+
+  console.log(`Updated last login: err2=${err2} r2=${r2}`)
 
   /** Error: DB Error */
   if (err2) return res.json(response('error, user, errorLoggingIn'))
@@ -274,31 +290,37 @@ export async function verify(req, res) {
     /** --- Save the user status to 'active' */
 
     /** Initialize user data */
-    const dateISO = new Date().toISOString()
+    const date = new Date().toISOString().replace('T', ' ').split('.')[0]
     const user = {
       status: 'active',
-      updated_at: dateISO,
+      updated_at: date,
     }
 
     /** Update user in db */
-    /** @var {Array} row - user row returned from db  */
-    const [err2, row] = await Try(
-      db
-        .knex('users')
-        .update(user, ['id', 'name', 'email'])
-        .where('id', r[0].id)
+    /** @var {Array} r2 - Returns [1] in "mysql/sqlite/oracle", [] in "postgres" */
+    const [err2, r2] = await Try(
+      db.knex('users').update(user).where('id', r[0].id)
     )
 
     /** Error: db error */
     if (err2) return res.json(response('error, user, errorUpdating'))
 
     /** Error: Nothing inserted in db */
-    if (row === undefined) return res.json(response('error, user, notFound'))
+    if (r2 === undefined) return res.json(response('error, user, notFound'))
+
+    /** Retrieve data from updated user */
+    /** @var {Array} r - row data from db */
+    const [err3, r3] = await Try(
+      db.knex('users').select('id', 'name', 'email').where('id', r[0].id)
+    )
+
+    /** Error: db error */
+    if (err3) return res.json(response('error, user, errorUpdating'))
 
     /** --- Success */
 
     /** Return message to client */
-    return res.json(response('success, user, updated', row[0]))
+    return res.json(response('success, user, updated', r3[0]))
   }
 }
 
@@ -386,26 +408,33 @@ export async function resetPassword(req, res) {
   /** --- Save the user password */
 
   /** Initialize user data */
-  const dateISO = new Date().toISOString()
+  const date = new Date().toISOString().replace('T', ' ').split('.')[0]
   const user = {
     password: v.password,
-    updated_at: dateISO,
+    updated_at: date,
   }
 
   /** Update user in db */
-  /** @var {Array} row2 - user row returned from db  */
-  const [err2, row2] = await Try(
-    db.knex('users').update(user).where('id', r.id)
-  )
+  /** @var {Array} r2 - Returns [1] in "mysql/sqlite/oracle", [] in "postgres" */
+  const [err2, r2] = await Try(db.knex('users').update(user).where('id', r.id))
 
   /** Error: db error */
   if (err2) return res.json(response('error, user, errorUpdating'))
 
   /** Error: Nothing inserted in db */
-  if (row2 === undefined) return res.json(response('error, user, notFound'))
+  if (r2 === undefined) return res.json(response('error, user, notFound'))
 
   /** --- Success */
 
+  /** Retrieve data from updated user */
+  /** @var {Array} r - row data from db */
+  const [err3, r3] = await Try(
+    db.knex('users').select('id', 'name', 'email').where('id', r.id)
+  )
+
+  /** Error: db error */
+  if (err3) return res.json(response('error, user, errorUpdating'))
+
   /** Return message to client */
-  return res.json(response('success, user, updated', row2[0]))
+  return res.json(response('success, user, updated', r3[0]))
 }

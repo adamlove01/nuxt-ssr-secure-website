@@ -160,13 +160,12 @@ export default {
   build: {
     /**
      * You can extend webpack config here
-     *
-     * extend(config, ctx) {},
      */
     analyze: false,
-    extend(config, { isClient }) {
-      if (isClient) {
-        config.optimization.splitChunks.maxSize = 200000
+    extend(config, ctx) {
+      // For debugging
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
       }
     },
   },

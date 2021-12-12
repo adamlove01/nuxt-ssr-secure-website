@@ -59,7 +59,7 @@ export async function create(req, res) {
   /** Encrypt password and create timestamp */
   const salt = bcrypt.genSaltSync(10)
   const encryptedPassword = bcrypt.hashSync(v.password, salt)
-  const dateISO = new Date().toISOString()
+  const date = new Date().toISOString().replace('T', ' ').split('.')[0]
 
   /** Initialize user data */
   let user = {
@@ -68,14 +68,22 @@ export async function create(req, res) {
     password: encryptedPassword,
     type: v.type,
     status: v.status,
-    created_at: dateISO,
-    updated_at: dateISO,
-    last_login: dateISO,
+    created_at: date,
+    updated_at: date,
+    last_login: date,
   }
 
   /** Save user in db */
   /** @var {Array} r2 - row id returned from db */
-  const [err2, r2] = await Try(db.knex('users').insert(user).returning('id'))
+  const [err2, r2] = await Try(
+    db
+      .knex('users')
+      .insert(user)
+      .then(function (id) {
+        return id
+      })
+  )
+  console.log(`r2=${r2}`)
 
   /** Error: db error */
   if (err2) return res.json(response('error, user, errorCreating', err2))
@@ -154,19 +162,19 @@ export async function update(req, res) {
   /** --- Save the user update */
 
   /** Initialize user data */
-  const dateISO = new Date().toISOString()
+  const date = new Date().toISOString().replace('T', ' ').split('.')[0]
   const user = {
     name: v.name,
     email: v.email,
     type: v.type,
     status: v.status,
-    updated_at: dateISO,
+    updated_at: date,
   }
 
   /** Update user in db */
   /** @var {Array} row.data - user row returned from db  */
   const [err2, row] = await Try(
-    db.knex('users').update(user, ['email']).where('id', v2.id)
+    db.knex('users').update(user).where('id', v2.id)
   )
 
   /** Error: db error */
@@ -177,8 +185,17 @@ export async function update(req, res) {
 
   /** --- Success */
 
+  /** Retrieve data from updated user */
+  /** @var {Array} r - row data from db */
+  const [err3, r3] = await Try(
+    db.knex('users').select('id', 'name', 'email').where('id', v2.id)
+  )
+
+  /** Error: db error */
+  if (err3) return res.json(response('error, user, errorUpdating'))
+
   /** Return message to client */
-  return res.json(response('success, user, updated', row[0]))
+  return res.json(response('success, user, updated', r3[0]))
 }
 
 /** Delete a user */

@@ -14,8 +14,8 @@ dotenv.config()
  */
 export async function sendConfirmationEmail(user) {
   /** Create Json WebToken */
-  const dateISO = new Date().toISOString()
-  const mail = { id: user.id, type: 'sendConfirmationEmail', created: dateISO }
+  const date = new Date().toISOString().replace('T', ' ').split('.')[0]
+  const mail = { id: user.id, type: 'sendConfirmationEmail', created: date }
   const token = jwt.sign(mail, process.env.TOKEN_AUTH_SECRET, {
     expiresIn: '1d',
   })
