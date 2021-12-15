@@ -407,10 +407,12 @@ export async function resetPassword(req, res) {
 
   /** --- Save the user password */
 
-  /** Initialize user data */
+  /** Encrypt password and create timestamp */
+  const salt = bcrypt.genSaltSync(10)
+  const encryptedPassword = bcrypt.hashSync(v.password, salt)
   const date = new Date().toISOString().replace('T', ' ').split('.')[0]
   const user = {
-    password: v.password,
+    password: encryptedPassword,
     updated_at: date,
   }
 
